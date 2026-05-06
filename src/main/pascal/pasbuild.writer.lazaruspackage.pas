@@ -263,15 +263,14 @@ begin
         LogWarning('File contents are the same. Not overwriting');
         Exit;
       end;
-      lFileStream.SaveToFile(lFile);
-      LogInfo('Writen successfully');
     end;
+    lFileStream.SaveToFile(lFile);
+    LogInfo('Writen successfully');
 
   finally
     FreeAndNil(lFileStream);
     FreeAndNil(lExistingFile);
   end;
-  LogInfo('Writing to: '+ lFile);
 end;
 
 procedure TLibraryWriter.Generate;
