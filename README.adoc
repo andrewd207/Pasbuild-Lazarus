@@ -2,7 +2,7 @@
 :toc:
 :toclevels: 3
 
-Pasbuild-Lazarus is a plugin for https://github.com/graemeg/PasBuild[PasBuild]that generates a Lazarus package from a PasBuild library project. PasBuild is a Maven-inspired build automation tool for Free Pascal projects, and its external plugin system supports standalone executables named `pasbuild-<goal>` that are discovered from a project plugins directory, the user plugin directory, or the system `PATH`.
+Pasbuild-Lazarus is a plugin for https://github.com/graemeg/PasBuild[PasBuild] that generates a Lazarus package from a PasBuild library project. PasBuild is a Maven-inspired build automation tool for Free Pascal projects, and its external plugin system supports standalone executables named `pasbuild-<goal>` that are discovered from a project plugins directory, the user plugin directory, or the system `PATH`.
 
 == TL;DR
 - `pasbuild compile` in this root folder.
