@@ -88,6 +88,7 @@ type
     procedure ApplyDefaults;
     procedure SetbaseInstalledLocation(AValue: String);
     procedure SetpreferInstalledLocation(AValue: Boolean);
+    procedure SetusePasbuildToCompile(AValue: Boolean);
   public
     function  GetValue(APath: String): String;
     procedure SetValue(APath: String; AValue: String);
@@ -108,7 +109,7 @@ type
 
     [DescAttr('Use Pasbuild to compile project/library instead of Lazarus''s build system. See Project -> Project Options -> Compiler Commands')]
     [BoolAttr(CDefaultUsePasbuildToCompile)]
-    property usePasbuildToCompile: Boolean read FusePasbuildToCompile write FusePasbuildToCompile;
+    property usePasbuildToCompile: Boolean read FusePasbuildToCompile write SetusePasbuildToCompile;
   end;
 
 var GConfig: TConfig;
@@ -190,6 +191,13 @@ begin
   if FPreferInstalledLocation=AValue then Exit;
   FPreferInstalledLocation:=AValue;
   FModified:=True;
+end;
+
+procedure TConfig.SetusePasbuildToCompile(AValue: Boolean);
+begin
+  if FusePasbuildToCompile=AValue then Exit;
+  FusePasbuildToCompile:=AValue;
+  Modified:=True;
 end;
 
 function TConfig.GetValue(APath: String): String;
