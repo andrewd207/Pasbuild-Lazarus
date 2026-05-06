@@ -1,0 +1,90 @@
+= Pasbuild-Lazarus
+:toc:
+:toclevels: 3
+
+Pasbuild-Lazarus is a plugin for PasBuild that generates a Lazarus package from a PasBuild library project. PasBuild is a Maven-inspired build automation tool for Free Pascal projects, and its external plugin system supports standalone executables named `pasbuild-<goal>` that are discovered from a project plugins directory, the user plugin directory, or the system `PATH`.
+
+== TL;DR
+- `pasbuild compile` in this root folder.
+- `./target/pasbuild-lazarus --install-plugin`
+- Then for your Pasbuild Library project `pasbuild lazarus` from it's folder, which creates a Lazarus lpk file. 
+- Open the package file in Lazarus.
+
+== Overview
+
+This plugin is intended for library projects managed with PasBuild. Its purpose is to create a Lazarus package file so the library can be opened, installed, or consumed more easily from the Lazarus IDE and related tooling.
+
+Typical use cases include:
+
+- Creating a `.lpk` package definition for an existing PasBuild library project.
+- Improving Lazarus IDE integration for reusable Pascal libraries.
+- Keeping a PasBuild-based library workflow while still supporting Lazarus users.
+
+== Requirements
+
+- Free Pascal
+- Lazarus
+- PasBuild 1.7.0 or newer, because external plugins were added in PasBuild 1.7.0.
+
+== What it does
+
+Given a PasBuild library project, this plugin creates a Lazarus package representation of that library. In practice, that means generating package metadata suitable for Lazarus so the library can be referenced as a package rather than only as a raw set of source files.
+
+== Installation
+
+PasBuild resolves external plugins as executables named `pasbuild-<goal>`. It looks for them in:
+
+- `plugins/` inside the current project
+- `~/.pasbuild/plugins/`
+- Any directory on `PATH` [web:18]
+
+To install this plugin:
+
+. Build or place the executable so it is named according to the PasBuild plugin convention.
+. You can run `pasbuild-lazarus --install-plugin` to copy itself into the ~/.pasbuild/plugins/ folder or equivalent on your platform.
+. Copy it into one of the PasBuild plugin search locations.
+. Verify that PasBuild can discover the plugin from your project. `pasbuild lazarus`
+
+
+== Usage
+
+Run the plugin through PasBuild using the goal name that matches the executable name. For example, a plugin named `pasbuild-lazarus` is invoked as:
+
+[source,bash]
+----
+pasbuild lazarus
+----
+
+The plugin should be executed from the root of a PasBuild library project so it can read the project metadata and generate the Lazarus package in the expected context. PasBuild passes project context to plugins through environment variables and its resolve integration.
+
+== Example workflow
+
+. Create or open a PasBuild library project.
+. Install `pasbuild-lazarus`.
+. Run the plugin goal from the project root.
+. Open the generated Lazarus package in Lazarus.
+. Build, install, or use the package from the IDE as needed.
+
+== Project scope
+
+Pasbuild-Lazarus focuses on bridging PasBuild library projects with Lazarus package-based workflows. It is useful when a project is built with PasBuild but also needs first-class Lazarus IDE compatibility for development or distribution.
+
+== Development
+
+This repository contains a PasBuild plugin rather than a standalone build system. The expected integration model follows PasBuild's external plugin architecture, where unknown goals are deferred for plugin resolution.
+
+Areas that may evolve over time include:
+
+- Package metadata generation
+- Unit discovery
+- Dependency mapping
+- Lazarus-specific package options
+- Output layout and naming conventions
+
+== Contributing
+
+Issues and pull requests are welcome. Contributions that improve Lazarus package generation, compatibility with common library layouts, and support for more PasBuild project metadata are especially valuable. Please use pull requests on github :)
+
+== License
+
+It uses the MIT license included here in this folder.
